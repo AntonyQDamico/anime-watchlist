@@ -11,3 +11,7 @@
   background-color: var(--main-background-color);
   min-height: 100vh;
 }
+.content-area {
+  display: grid;
+  grid-template-columns: minmax(315px, 1fr);
+}

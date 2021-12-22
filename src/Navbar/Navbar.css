@@ -1,8 +1,9 @@
 .navbar {
   background-color: var(--banner-color);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   z-index: 999;
   width: 100%;
-  display: flex;
 }
 .logo-name {
   color: var(--accent-blue);
@@ -10,11 +11,12 @@
   margin-left: 1rem;
   font-size: larger;
   font-weight: bold;
+  justify-content: center;
 }
 nav {
   margin-right: 2em;
   display: flex;
-  grid-column: 3 / span 1;
+  grid-column: 2 / span 1;
   align-items: center;
   justify-content: flex-end;
 }

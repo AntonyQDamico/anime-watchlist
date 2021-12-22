@@ -1,10 +1,10 @@
 .login-area {
-  background-color: var(--accent-white);
-  color: var(--main-background-color);
   padding: 0em 1.5em 1.5em 1.5em;
   display: grid;
   grid-template-columns: minmax(315px, 1fr);
   justify-items: center;
+  border: 2px solid var(--accent-white);
+  border-radius: 0.5em;
 }
 h1 {
   font-size: 1.8em;
