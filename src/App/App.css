@@ -1,0 +1,13 @@
+:root {
+  --banner-color: #7e52a0;
+  --main-background-color: #2d2d2a;
+  --accent-blue: #06bee1;
+  --accent-red: #7b2d26;
+  --accent-white: #ffffff;
+}
+.App {
+  text-align: center;
+  color: var(--accent-white);
+  background-color: var(--main-background-color);
+  min-height: 100vh;
+}

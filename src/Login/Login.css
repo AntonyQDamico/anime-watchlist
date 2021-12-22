@@ -1,0 +1,34 @@
+.login-area {
+  background-color: var(--accent-white);
+  color: var(--main-background-color);
+  padding: 0em 1.5em 1.5em 1.5em;
+  display: grid;
+  grid-template-columns: minmax(315px, 1fr);
+  justify-items: center;
+}
+h1 {
+  font-size: 1.8em;
+}
+a {
+  color: var(--accent-blue);
+}
+label {
+  font-size: 1.6em;
+}
+input {
+  font-size: 1.75em;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 2px solid var(--accent-red);
+  box-sizing: border-box;
+}
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  border-radius: 0.5em;
+}
+input[type="submit"] {
+  width: 80%;
+  border-radius: 1em;
+}

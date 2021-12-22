@@ -1,0 +1,33 @@
+.navbar {
+  background-color: var(--banner-color);
+  z-index: 999;
+  width: 100%;
+  display: flex;
+}
+.logo-name {
+  color: var(--accent-blue);
+  text-decoration: none;
+  margin-left: 1rem;
+  font-size: larger;
+  font-weight: bold;
+}
+nav {
+  margin-right: 2em;
+  display: flex;
+  grid-column: 3 / span 1;
+  align-items: center;
+  justify-content: flex-end;
+}
+nav ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style: none;
+}
+nav li {
+  margin: 0 0.25em;
+  position: relative;
+}
+nav a {
+  color: var(--accent-white);
+}
