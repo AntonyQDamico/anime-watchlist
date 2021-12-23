@@ -1,0 +1,44 @@
+.watchitem {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 100%;
+  background-color: var(--accent-white);
+  color: var(--main-background-color);
+  margin: 0.25em 0;
+  border: 1px solid var(--accent-blue);
+  border-radius: 0.5em;
+  align-items: center;
+}
+.watch-title {
+  grid-column: 1 / span 4;
+  grid-row: 1 / span 2;
+  font-size: 1.5rem;
+}
+.watch-site {
+  grid-column: 5 / span 1;
+  grid-row: 1 / span 1;
+}
+.watch-day {
+  grid-column: 5 / span 1;
+  grid-row: 2 / span 1;
+}
+.watch-queue {
+  grid-column: 6 / span 2;
+  grid-row: 1 / span 2;
+  font-size: 1.5rem;
+}
+.queue-add {
+  grid-column: 8 / span 1;
+  grid-row: 1 / span 1;
+}
+.queue-remove {
+  grid-column: 8 / span 1;
+  grid-row: 2 / span 1;
+}
+.watch-extra-info {
+  grid-column: 1 / span 8;
+  grid-row: 3 / span 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}

@@ -1,0 +1,22 @@
+.headers {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  align-items: center;
+  margin: 0;
+  width: 100%;
+}
+.head-title {
+  grid-column: 1 / span 4;
+  grid-row: 1 / span 2;
+}
+.head-site-day {
+  grid-column: 5 / span 1;
+  margin: 0;
+}
+.head-status {
+  grid-column: 6 / span 2;
+  grid-row: 1 / span 2;
+}
+h2 {
+  font-size: large;
+}
