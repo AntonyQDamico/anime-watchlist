@@ -36,6 +36,10 @@
   grid-column: 8 / span 1;
   grid-row: 2 / span 1;
 }
+button {
+  width: 100%;
+  font-size: 1em;
+}
 .watch-extra-info {
   grid-column: 1 / span 8;
   grid-row: 3 / span 1;
