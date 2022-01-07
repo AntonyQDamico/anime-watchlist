@@ -7,17 +7,19 @@ function Watchlist() {
       title: "One Piece",
       site: "CR",
       day: "Thur",
-      queue: [16],
+      queue: [102],
       totalEps: 24,
-      nextEp: 16,
+      nextEp: 102,
+      showID: 1,
     },
     {
       title: "Bleach",
       site: "NF",
       day: "Sat",
-      queue: [1, 2],
+      queue: [1, 2, 3],
       totalEps: 25,
       nextEp: 1,
+      showID: 2,
     },
     {
       title: "Naruto",
@@ -26,6 +28,7 @@ function Watchlist() {
       queue: [2],
       totalEps: 12,
       nextEp: 2,
+      showID: 3,
     },
   ];
   return (
@@ -41,7 +44,7 @@ function Watchlist() {
         <h2 className="head-status">Status</h2>
       </div>
       {titleList.map((eachItem) => {
-        return <WatchItem show={eachItem} />;
+        return <WatchItem show={eachItem} key={eachItem.showID} />;
       })}
     </div>
   );
