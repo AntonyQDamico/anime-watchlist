@@ -10,7 +10,9 @@ function WatchItem(props) {
     console.log("add to queue");
   }
   function queueRemove() {
-    console.log("remove from queue");
+    const currentQueue = [...queueEps];
+    currentQueue.pop();
+    setQueueEps(currentQueue);
   }
   function deleteFromList() {
     console.log("Are you sure you want to delete?");
