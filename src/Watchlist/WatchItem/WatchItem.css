@@ -9,6 +9,7 @@
   border: 1px solid var(--accent-blue);
   border-radius: 0.25em;
   align-items: center;
+  overflow: hidden;
 }
 .watch-title {
   grid-column: 1 / span 4;

@@ -1,0 +1,21 @@
+.add-show {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: auto;
+  width: 100%;
+  background-color: var(--banner-color);
+  color: var(--accent-white);
+  margin: 0.25em 0;
+  border: 1px solid var(--accent-red);
+  border-radius: 0.25em;
+  align-items: center;
+}
+.add-button {
+  grid-column: 1 / span 8;
+  grid-row: 1 / span 2;
+  font-size: 1.5rem;
+}
+.hidden-form {
+  visibility: collapse;
+  height: 0;
+}

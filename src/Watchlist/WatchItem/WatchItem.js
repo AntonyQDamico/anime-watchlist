@@ -22,7 +22,7 @@ function WatchItem(props) {
     setQueueEps(currentQueue);
   }
   function deleteFromList() {
-    console.log("Are you sure you want to delete?");
+    props.removeFromList(props.show.showID);
   }
   function toggleExtraInfo() {
     setExtraVis(!extraVis);
