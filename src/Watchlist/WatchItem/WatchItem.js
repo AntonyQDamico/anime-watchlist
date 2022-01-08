@@ -7,7 +7,14 @@ function WatchItem(props) {
   const [extraVis, setExtraVis] = useState(false);
 
   function queueAdd() {
-    console.log("add to queue");
+    const currentQueue = [...queueEps];
+    if (currentQueue.length > 0) {
+      currentQueue.push(currentQueue[currentQueue.length - 1] + 1);
+      setQueueEps(currentQueue);
+    } else {
+      currentQueue.push(nextEp);
+      setQueueEps(currentQueue);
+    }
   }
   function queueRemove() {
     const currentQueue = [...queueEps];
@@ -19,6 +26,15 @@ function WatchItem(props) {
   }
   function toggleExtraInfo() {
     setExtraVis(!extraVis);
+  }
+  function watchAnEp() {
+    const currentQueue = [...queueEps];
+    if (currentQueue.length > 0) {
+      setNextEp(currentQueue.shift() + 1);
+      setQueueEps(currentQueue);
+    } else {
+      return;
+    }
   }
   const title = props.show.title;
   const site = props.show.site;
@@ -37,7 +53,9 @@ function WatchItem(props) {
       </div>
       <div className="watch-site">{site}</div>
       <div className="watch-day">{day}</div>
-      <div className="watch-queue">{queueEps}</div>
+      <div className="watch-queue" onClick={watchAnEp}>
+        {queueEps}
+      </div>
       <div className="queue-add">
         <button onClick={queueAdd}>+</button>
       </div>
