@@ -35,9 +35,70 @@ const trialList = [
 
 function Watchlist() {
   const [titleList, setTitleList] = useState(trialList);
+  const [nextShowId, setNextShowId] = useState(4); //value based on trialList
 
   function removeFromList(showId) {
     const newList = titleList.filter((item) => item.showID !== showId);
+    setTitleList(newList);
+  }
+  function getNextShowId() {
+    const nextValue = nextShowId;
+    console.log(typeof nextShowId);
+    setNextShowId(Number(nextValue) + 1);
+    return nextValue;
+  }
+
+  function addShowToList(title, site, day, totalEps, nextEp) {
+    const newList = [...titleList];
+    newList.push({
+      title: title,
+      site: site,
+      day: day,
+      queue: [],
+      totalEps: totalEps,
+      nextEp: nextEp,
+      showID: getNextShowId(),
+    });
+    setTitleList(newList);
+  }
+  function sortWatchListTitle() {
+    let newList = [...titleList];
+    newList.sort((firstItem, secondItem) =>
+      firstItem.title > secondItem.title ? 1 : -1
+    );
+    setTitleList(newList);
+  }
+  function sortWatchListDay() {
+    const weekdayToday = new Date().getDay();
+    let weekdays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+    let sortedDays = weekdays
+      .slice(weekdayToday)
+      .concat(weekdays.slice(0, weekdayToday));
+    sortedDays.push("??");
+
+    let newList = [...titleList];
+    newList.sort((firstItem, secondItem) => {
+      if (
+        sortedDays.indexOf(firstItem.day) > sortedDays.indexOf(secondItem.day)
+      ) {
+        return 1;
+      }
+      if (
+        sortedDays.indexOf(firstItem.day) < sortedDays.indexOf(secondItem.day)
+      ) {
+        return -1;
+      }
+      if (
+        firstItem.title.toLocaleLowerCase() >
+        secondItem.title.toLocaleLowerCase()
+      ) {
+        return 1;
+      }
+      if (firstItem.title < secondItem.title) {
+        return -1;
+      }
+      return 0;
+    });
     setTitleList(newList);
   }
 
@@ -45,8 +106,10 @@ function Watchlist() {
     <div className="watchlist content-area">
       <h1>Watchlist</h1>
       <div className="headers">
-        <h2 className="head-title">Title</h2>
-        <h2 className="head-site-day">
+        <h2 className="head-title" onClick={sortWatchListTitle}>
+          Title
+        </h2>
+        <h2 className="head-site-day" onClick={sortWatchListDay}>
           Site
           <br />
           Day
@@ -62,7 +125,7 @@ function Watchlist() {
           />
         );
       })}
-      <AddShowButton />
+      <AddShowButton addShowToList={addShowToList} />
     </div>
   );
 }

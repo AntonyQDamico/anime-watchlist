@@ -26,11 +26,17 @@ function AddShowButton(props) {
   function handleSubmit(event) {
     event.preventDefault();
     console.log(
-      `Submitted Values: \nTitle: ${newTitle}\nSite: ${newSite}\nDay: ${newDay}\nStart Ep: ${newStart}\nSeason Eps: ${newTotal}`
+      `Submitted Values: \nTitle: ${typeof newTitle}\nSite: ${typeof newSite}\nDay: ${typeof newDay}\nStart Ep: ${typeof newStart}\nSeason Eps: ${typeof newTotal}`
     );
-    console.log("It Submitted. I'll figure the rest out later");
     setFormVis(false);
     resetFormDefault();
+    let totalEps = newStart;
+    if (newTotal === "") {
+      totalEps = "??";
+    } else {
+      totalEps += newTotal;
+    }
+    props.addShowToList(newTitle, newSite, newDay, totalEps, newStart);
   }
   function handleTitle(event) {
     setNewTitle(event.target.value);
@@ -42,10 +48,14 @@ function AddShowButton(props) {
     setNewDay(event.target.value);
   }
   function handleStart(event) {
-    setNewStart(event.target.value);
+    if (event.target.value === "") {
+      setNewStart("");
+    } else setNewStart(Number(event.target.value));
   }
   function handleTotal(event) {
-    setNewTotal(event.target.value);
+    if (event.target.value === "") {
+      setNewTotal("");
+    } else setNewTotal(Number(event.target.value));
   }
   return (
     <div className="add-show">
@@ -53,7 +63,7 @@ function AddShowButton(props) {
         New Show
       </div>
       <form className={classNewShowForm} onSubmit={handleSubmit}>
-        <label for="title">Show Title</label>
+        <label htmlFor="title">Show Title</label>
         <input
           type="text"
           id="title"
@@ -61,14 +71,14 @@ function AddShowButton(props) {
           onChange={handleTitle}
           required
         />
-        <label for="site">Site</label>
+        <label htmlFor="site">Site</label>
         <select id="site" value={newSite} onChange={handleSite}>
           <option value="??">Unknown</option>
           <option value="CR">Crunchyroll</option>
           <option value="NF">Netflix</option>
           <option value="FUN">Funimation</option>
         </select>
-        <label for="day">Weekday</label>
+        <label htmlFor="day">Weekday</label>
         <select id="day" value={newDay} onChange={handleDay}>
           <option value="??">Unknown</option>
           <option value="Sun">Sunday</option>
@@ -79,7 +89,7 @@ function AddShowButton(props) {
           <option value="Fri">Friday</option>
           <option value="Sat">Saturday</option>
         </select>
-        <label for="startEp">Starting Ep</label>
+        <label htmlFor="startEp">Starting Ep</label>
         <input
           type="number"
           id="startEp"
@@ -87,7 +97,7 @@ function AddShowButton(props) {
           value={newStart}
           onChange={handleStart}
         />
-        <label for="totalEp">Eps in Season</label>
+        <label htmlFor="totalEp">Eps in Season</label>
         <input
           type="number"
           id="totalEp"
