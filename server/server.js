@@ -19,7 +19,7 @@ const swaggerOptions = {
       servers: [`https://localhost:${PORT}`],
     },
   },
-  apis: ["./server/*/*.js"],
+  apis: ["./*/*.js"],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
