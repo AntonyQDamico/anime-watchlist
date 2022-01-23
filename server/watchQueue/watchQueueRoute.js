@@ -175,7 +175,7 @@ watchQueueRoute.post("/:userId/:showId", async (req, res, next) => {
 //DELETE /api/watch-queue/:userId/:showId
 watchQueueRoute.delete("/:userId/:showId", async (req, res, next) => {
   try {
-    const deleteResult = await db.asyncQuery(
+    await db.asyncQuery(
       "DELETE FROM watchqueue WHERE queue_ep = $1 AND user_id = $2 AND show_id = $3",
       [req.body.queueEp, req.userId, req.showId]
     );
