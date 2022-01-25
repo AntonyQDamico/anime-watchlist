@@ -117,7 +117,9 @@ watchQueueRoute.get("/:userId/:showId", async (req, res, next) => {
  *         description: episode to add to watch-queue
  *         in: body
  *         required: true
- *         type: integer
+ *         type: object
+ *         properties:
+ *           queueEp: integer
  *     responses:
  *       201:
  *         description: watch-queue item added
@@ -163,7 +165,9 @@ watchQueueRoute.post("/:userId/:showId", async (req, res, next) => {
  *         description: episode to remove from watch-queue
  *         in: body
  *         required: true
- *         type: integer
+ *         type: object
+ *         properties:
+ *           queueEp: integer
  *     responses:
  *       204:
  *         description: Successful removal of watch-queue item
