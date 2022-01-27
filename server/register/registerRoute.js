@@ -23,12 +23,21 @@ const registerRoute = express.Router();
  *             type: string
  *     responses:
  *       201:
- *         description: user added
+ *         description: User added
+ *       400:
+ *         description: User alread exists
  *       500:
  *         description: An unexpexted error occured
  */
 registerRoute.post("/", async (req, res, next) => {
   try {
+    const userExist = await db.asyncQuery(
+      "SELECT COUNT(1) FROM users WHERE email = $1",
+      [req.body.email]
+    );
+    if (userExist.rows[0].count !== "0") {
+      res.status(400).send("email already exists");
+    }
     const hashPass = await bcrypt.hash(req.body.password, 10);
     await db.asyncQuery("INSERT INTO users (email, password) VALUES ($1, $2)", [
       req.body.email,

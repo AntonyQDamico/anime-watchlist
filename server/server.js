@@ -1,9 +1,11 @@
+require("dotenv").config({ path: __dirname + "/./../.env" });
 const express = require("express");
 const app = express();
 module.exports = app;
 
 const PORT = 3001;
 
+//Setup for Swagger and swagger-docs
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
@@ -25,18 +27,40 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-// Add middleware for handling CORS requests from index.html.
-var cors = require("cors");
-app.use(cors());
-
 // Add middware for parsing request bodies here.
 var bodyParser = require("body-parser");
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Add middleware for handling CORS requests from index.html.
+var cors = require("cors");
+app.use(
+  cors({
+    origin: "http://localhost:3000", // <-- location of react app we are conneting to
+    credentials: true,
+  })
+);
+
+// Add session middleware
+const expressSession = require("express-session");
+app.use(
+  expressSession({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+// Add cookie-parser
+const cookieParser = require("cookie-parser");
+app.use(cookieParser(process.env.SESSION_SECRET));
 
 // Add authentication middleware
-// var passport = require("passport");
-// app.use(passport.initialize());
-// app.use(passport.session());
+const passport = require("passport");
+const initializePassport = require("./passport-config.js");
+app.use(passport.initialize());
+app.use(passport.session());
+initializePassport(passport);
 
 // Mount the apiRouter below at the '/api' path.
 const apiRouter = require("./api.js");
