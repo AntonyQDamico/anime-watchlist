@@ -24,12 +24,12 @@ function Login() {
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">
-            <b>Username</b>
+            <b>Email</b>
           </label>
           <br />
           <input
-            type="text"
-            placeholder="Enter Username"
+            type="email"
+            placeholder="Enter Email"
             name="username"
             value={username}
             onChange={handleUserChange}

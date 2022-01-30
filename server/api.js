@@ -13,6 +13,7 @@ apiRouter.use("/logout", checkAuthenticated, logoutRouter);
 apiRouter.use("/shows", checkAuthenticated, showsRouter);
 apiRouter.use("/user-shows", checkAuthenticated, userShowsRouter);
 apiRouter.use("/watch-queue", checkAuthenticated, watchQueueRouter);
+apiRouter.get("/auth-check", authCheck);
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -28,6 +29,10 @@ function checkNotAuthenticated(req, res, next) {
   } else {
     return next();
   }
+}
+
+function authCheck(req, res, next) {
+  res.send(req.isAuthenticated());
 }
 
 module.exports = apiRouter;

@@ -128,7 +128,8 @@ userShowsRoute.get("/:userId", async (req, res, next) => {
  *         required: true
  *         type: object
  *         properties:
- *           nextEp: integer
+ *           nextEp:
+ *             type: integer
  *     responses:
  *       201:
  *         description: show added to list
@@ -178,7 +179,8 @@ userShowsRoute.post("/:userId/:showId", async (req, res, next) => {
  *         required: true
  *         type: object
  *         properties:
- *           nextEp: integer
+ *           nextEp:
+ *             type: integer
  *     responses:
  *       200:
  *         description: An array of show information

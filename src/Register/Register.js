@@ -1,5 +1,6 @@
 import "../Login/Login.css";
 import { useState } from "react";
+import axios from "axios";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -13,6 +14,17 @@ function Register() {
   }
   function handleSubmit(event) {
     event.preventDefault();
+    axios({
+      method: "post",
+      url: process.env.REACT_APP_SERVER_URL + "api/register",
+      body: {
+        email: username,
+        password: password,
+      },
+      validateStatus: (status) => {
+        return status < 400;
+      },
+    }).then(); //TODO: Finish This handler
     console.log("Well, it worked! Register Edition");
     setUsername("");
     setPassword("");
@@ -23,12 +35,12 @@ function Register() {
         <h1>Sign Up</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">
-            <b>Username</b>
+            <b>Email</b>
           </label>
           <br />
           <input
-            type="text"
-            placeholder="Enter Username"
+            type="email"
+            placeholder="Enter Email"
             name="username"
             value={username}
             onChange={handleUserChange}
