@@ -57,6 +57,8 @@ showsRoute.param("showId", async (req, res, next, showId) => {
  *         description: An object of show information
  *         schema:
  *           $ref: '#/definitions/shows'
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: The specified show cannot be found
  *       500:
@@ -104,6 +106,8 @@ showsRoute.get("/:showId", async (req, res, next) => {
  *         description: show added to list
  *         schema:
  *           $ref: '#/definitions/shows'
+ *       401:
+ *         description: Unauthorized
  *       500:
  *         description: An unexpexted error occured
  */
@@ -160,6 +164,8 @@ showsRoute.post("/", async (req, res, next) => {
  *         description: Show information updated
  *         schema:
  *           $ref: '#/definitions/shows'
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: The specified show cannot be found
  *       500:
@@ -207,6 +213,8 @@ showsRoute.put("/:showId", async (req, res, next) => {
  *     responses:
  *       204:
  *         description: Successful removal of show from watch list
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: The specified user or show cannot be found
  *       500:

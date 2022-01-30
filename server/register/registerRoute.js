@@ -25,7 +25,9 @@ const registerRoute = express.Router();
  *       201:
  *         description: User added
  *       400:
- *         description: User alread exists
+ *         description: User already exists
+ *       403:
+ *         description: User should not be logged in
  *       500:
  *         description: An unexpexted error occured
  */

@@ -73,6 +73,8 @@ watchQueueRoute.param("showId", async (req, res, next, showId) => {
  *         schema:
  *           type: array
  *           example: [1, 2, 3]
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: The specified user or show cannot be found
  *       500:
@@ -125,6 +127,8 @@ watchQueueRoute.get("/:userId/:showId", async (req, res, next) => {
  *         description: watch-queue item added
  *         schema:
  *           $ref: '#/definitions/watchQueue'
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: The specified user or show cannot be found
  *       500:
@@ -171,6 +175,8 @@ watchQueueRoute.post("/:userId/:showId", async (req, res, next) => {
  *     responses:
  *       204:
  *         description: Successful removal of watch-queue item
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: The specified user or show cannot be found
  *       500:
