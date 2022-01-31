@@ -32,3 +32,6 @@ input[type="submit"] {
   width: 80%;
   border-radius: 1em;
 }
+.pop-message {
+  font-weight: bold;
+}

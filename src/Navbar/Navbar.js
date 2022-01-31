@@ -1,6 +1,7 @@
 import "../App/App.css";
 import "./Navbar.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function logout() {
   axios({
@@ -13,15 +14,15 @@ const loggedInNav = (
   <nav>
     <ul>
       <li>
-        <a href="./watchlist">Watchlist</a>
+        <Link to="./watchlist">Watchlist</Link>
       </li>
       <li>
-        <a href="./account">Account</a>
+        <Link to="./account">Account</Link>
       </li>
       <li>
-        <a href="./" onClick={logout()}>
+        <Link to="./" onClick={logout}>
           Logout
-        </a>
+        </Link>
       </li>
     </ul>
   </nav>
@@ -31,10 +32,10 @@ const loggedOutNav = (
   <nav>
     <ul>
       <li>
-        <a href="./Login">Login</a>
+        <Link to="./Login">Login</Link>
       </li>
       <li>
-        <a href="./Register">Register</a>
+        <Link to="./Register">Register</Link>
       </li>
     </ul>
   </nav>
@@ -43,9 +44,9 @@ const loggedOutNav = (
 function Navbar(props) {
   return (
     <div className="navbar">
-      <a href="./" className="logo-name">
+      <Link to="./" className="logo-name">
         Anime Watchlist
-      </a>
+      </Link>
       {props.isAuth ? loggedInNav : loggedOutNav}
     </div>
   );

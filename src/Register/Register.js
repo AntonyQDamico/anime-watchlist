@@ -1,10 +1,13 @@
 import "../Login/Login.css";
 import { useState } from "react";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
+  const [registerMessage, setRegisterMessage] = useState("");
 
   function handleUserChange(event) {
     setUsername(event.target.value);
@@ -17,22 +20,41 @@ function Register() {
     axios({
       method: "post",
       url: process.env.REACT_APP_SERVER_URL + "api/register",
-      body: {
+      data: {
         email: username,
         password: password,
       },
       validateStatus: (status) => {
         return status < 400;
       },
-    }).then(); //TODO: Finish This handler
-    console.log("Well, it worked! Register Edition");
-    setUsername("");
-    setPassword("");
+    })
+      .then((response) => {
+        setUsername("");
+        setPassword("");
+        setRegisterMessage(response.data);
+        setRedirect(true);
+      })
+      .catch((error) => {
+        setUsername("");
+        setPassword("");
+        setRegisterMessage(error.response.data);
+      });
   }
   return (
     <div className="content-area">
+      {redirect ? (
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: { extraMessage: registerMessage },
+          }}
+        />
+      ) : null}
       <section className="login-area">
         <h1>Sign Up</h1>
+        {registerMessage.length > 0 ? (
+          <p className="pop-message">{registerMessage}</p>
+        ) : null}
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">
             <b>Email</b>

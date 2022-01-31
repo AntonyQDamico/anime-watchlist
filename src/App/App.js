@@ -12,16 +12,20 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
-  axios({
-    method: "get",
-    url: process.env.REACT_APP_SERVER_URL + "api/auth-check",
-  }).then((response) => setIsAuth(response.data));
-
+  function authCheck() {
+    axios({
+      method: "get",
+      url: process.env.REACT_APP_SERVER_URL + "api/auth-check",
+    })
+      .then((response) => setIsAuth(response.data))
+      .catch((error) => setIsAuth(false));
+  }
+  useEffect(authCheck, []);
   return (
     <Router>
       <div className="App">
@@ -38,7 +42,9 @@ function App() {
           <Route
             path="/login"
             exact
-            render={() => (isAuth ? <Redirect to="/" /> : <Login />)}
+            render={() =>
+              isAuth ? <Redirect to="/" /> : <Login setIsAuth={setIsAuth} />
+            }
           ></Route>
           <Route
             path="/register"

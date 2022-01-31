@@ -46,8 +46,8 @@ const expressSession = require("express-session");
 app.use(
   expressSession({
     secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
   })
 );
 
