@@ -3,45 +3,48 @@ import "./Navbar.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-function logout() {
-  axios({
-    method: "post",
-    url: process.env.REACT_APP_SERVER_URL + "api/logout",
-  }).then((response) => this.props.setIsAuth(false));
-  console.log("logout edition");
-}
-const loggedInNav = (
-  <nav>
-    <ul>
-      <li>
-        <Link to="./watchlist">Watchlist</Link>
-      </li>
-      <li>
-        <Link to="./account">Account</Link>
-      </li>
-      <li>
-        <Link to="./" onClick={logout}>
-          Logout
-        </Link>
-      </li>
-    </ul>
-  </nav>
-);
-
-const loggedOutNav = (
-  <nav>
-    <ul>
-      <li>
-        <Link to="./Login">Login</Link>
-      </li>
-      <li>
-        <Link to="./Register">Register</Link>
-      </li>
-    </ul>
-  </nav>
-);
-
 function Navbar(props) {
+  const loggedInNav = (
+    <nav>
+      <ul>
+        <li>
+          <Link to="./watchlist">Watchlist</Link>
+        </li>
+        <li>
+          <Link to="./account">Account</Link>
+        </li>
+        <li>
+          <Link to="./" onClick={logout}>
+            Logout
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  );
+
+  const loggedOutNav = (
+    <nav>
+      <ul>
+        <li>
+          <Link to="./Login">Login</Link>
+        </li>
+        <li>
+          <Link to="./Register">Register</Link>
+        </li>
+      </ul>
+    </nav>
+  );
+
+  function logout() {
+    axios({
+      method: "post",
+      url: process.env.REACT_APP_SERVER_URL + "api/logout",
+      withCredentials: true,
+    })
+      .then((response) => props.setIsAuth(false))
+      .catch((error) => props.setIsAuth(false));
+  }
+
   return (
     <div className="navbar">
       <Link to="./" className="logo-name">

@@ -17,10 +17,12 @@ import axios from "axios";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
+
   function authCheck() {
     axios({
       method: "get",
       url: process.env.REACT_APP_SERVER_URL + "api/auth-check",
+      withCredentials: true,
     })
       .then((response) => setIsAuth(response.data))
       .catch((error) => setIsAuth(false));

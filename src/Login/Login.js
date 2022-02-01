@@ -2,12 +2,10 @@ import "../App/App.css";
 import "./Login.css";
 import { useState } from "react";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 
 function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [redirect, setRedirect] = useState(false);
   const [loginMessage, setLoginMessage] = useState(props.extraMessage || "");
 
   function handleUserChange(event) {
@@ -25,6 +23,7 @@ function Login(props) {
         email: username,
         password: password,
       },
+      withCredentials: true,
       validateStatus: (status) => {
         return status < 400;
       },
@@ -33,7 +32,6 @@ function Login(props) {
         setUsername("");
         setPassword("");
         setLoginMessage(response.data);
-        setRedirect(true);
         props.setIsAuth(true);
       })
       .catch((error) => {
@@ -47,13 +45,6 @@ function Login(props) {
   }
   return (
     <div className="content-area">
-      {redirect ? (
-        <Redirect
-          to={{
-            pathname: "/watchlist",
-          }}
-        />
-      ) : null}
       <section className="login-area">
         <h1>Login</h1>
         {loginMessage.length > 0 ? (

@@ -24,6 +24,7 @@ function Register() {
         email: username,
         password: password,
       },
+      withCredentials: true,
       validateStatus: (status) => {
         return status < 400;
       },
