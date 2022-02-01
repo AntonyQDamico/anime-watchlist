@@ -36,7 +36,10 @@ function initialize(passport) {
         "SELECT * FROM users WHERE user_id = $1",
         [id]
       );
-      done(null, userSearch.rows[0]);
+      done(null, {
+        user_id: userSearch.rows[0].user_id,
+        email: userSearch.rows[0].email,
+      });
     } catch (err) {
       done(err);
     }
