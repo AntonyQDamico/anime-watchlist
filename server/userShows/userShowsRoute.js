@@ -65,17 +65,11 @@ userShowsRoute.param("showId", async (req, res, next, showId) => {
 
 /**
  * @swagger
- * /api/user-shows/{userId}:
+ * /api/user-shows:
  *   get:
- *     summary: Returns all shows a specific users list
+ *     summary: Returns all shows on a specific users list
  *     produces:
  *       - application/json
- *     parameters:
- *       - name: userId
- *         description: user's id number
- *         in: path
- *         required: true
- *         type: integer
  *     responses:
  *       200:
  *         description: An array of show information
@@ -88,15 +82,15 @@ userShowsRoute.param("showId", async (req, res, next, showId) => {
  *       500:
  *         description: An unexpected error occured
  */
-//GET /api/user-shows/:userId
-userShowsRoute.get("/:userId", async (req, res, next) => {
+//GET /api/user-shows
+userShowsRoute.get("/", async (req, res, next) => {
   try {
     const searchResult = await db.asyncQuery(
       `SELECT shows.title, shows.site, shows.air_day, shows.ending_ep, usershows.next_ep, shows.show_id
        FROM usershows INNER JOIN shows ON usershows.show_id = shows.show_id 
        WHERE user_id = $1 
        ORDER BY shows.title ASC`,
-      [req.userId]
+      [req.user.user_id]
     );
     res.send(searchResult.rows);
   } catch (err) {

@@ -1,40 +1,42 @@
 import "./Watchlist.css";
 import WatchItem from "./WatchItem/WatchItem.js";
 import AddShowButton from "./AddShowButton/AddShowButton.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const trialList = [
-  {
-    title: "One Piece",
-    site: "CR",
-    day: "Thur",
-    queue: [102],
-    totalEps: 24,
-    nextEp: 102,
-    showID: 1,
-  },
-  {
-    title: "Bleach",
-    site: "NF",
-    day: "Sat",
-    queue: [1, 2, 3],
-    totalEps: 25,
-    nextEp: 1,
-    showID: 2,
-  },
-  {
-    title: "Naruto",
-    site: "FUN",
-    day: "Wed",
-    queue: [2],
-    totalEps: 12,
-    nextEp: 2,
-    showID: 3,
-  },
-];
+// const trialList = [
+//   {
+//     title: "One Piece",
+//     site: "CR",
+//     day: "Thur",
+//     queue: [102],
+//     totalEps: 24,
+//     nextEp: 102,
+//     showID: 1,
+//   },
+//   {
+//     title: "Bleach",
+//     site: "NF",
+//     day: "Sat",
+//     queue: [1, 2, 3],
+//     totalEps: 25,
+//     nextEp: 1,
+//     showID: 2,
+//   },
+//   {
+//     title: "Naruto",
+//     site: "FUN",
+//     day: "Wed",
+//     queue: [2],
+//     totalEps: 12,
+//     nextEp: 2,
+//     showID: 3,
+//   },
+// ];
 
 function Watchlist() {
-  const [titleList, setTitleList] = useState(trialList);
+  const [titleList, setTitleList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
   const [nextShowId, setNextShowId] = useState(4); //value based on trialList
 
   function removeFromList(showId) {
@@ -102,9 +104,35 @@ function Watchlist() {
     setTitleList(newList);
   }
 
+  function getUsersWatchList() {
+    axios({
+      method: "get",
+      url: process.env.REACT_APP_SERVER_URL + "api/user-shows",
+      withCredentials: true,
+    })
+      .then((response) => {
+        const newList = response.data.map((eachShow) => {
+          return {
+            title: eachShow.title,
+            site: eachShow.site,
+            day: eachShow.air_day,
+            queue: [],
+            totalEps: eachShow.ending_ep > 0 ? eachShow.ending_ep : "??",
+            nextEp: eachShow.next_ep,
+            showID: eachShow.show_id,
+          };
+        });
+        setTitleList(newList);
+      })
+      .catch((error) => setErrorMessage("Something went wrong, Sorry."));
+  }
+
+  useEffect(getUsersWatchList, []);
+
   return (
     <div className="watchlist content-area">
       <h1>Watchlist</h1>
+      {errorMessage.length > 0 ? <p>{errorMessage}</p> : null}
       <div className="headers">
         <h2 className="head-title" onClick={sortWatchListTitle}>
           Title
