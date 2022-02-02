@@ -32,7 +32,7 @@ function AddShowButton(props) {
     resetFormDefault();
     let totalEps = newStart;
     if (newTotal === "") {
-      totalEps = "??";
+      totalEps = 0;
     } else {
       totalEps += newTotal;
     }

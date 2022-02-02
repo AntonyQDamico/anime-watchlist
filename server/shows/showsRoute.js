@@ -118,7 +118,7 @@ showsRoute.post("/", async (req, res, next) => {
       "INSERT INTO shows (title, air_day, site, start_ep, ending_ep) VALUES ($1, $2, $3, $4, $5) RETURNING *",
       [
         req.body.title,
-        req.body.air_date,
+        req.body.air_day,
         req.body.site,
         req.body.start_ep,
         req.body.ending_ep,
@@ -199,7 +199,7 @@ showsRoute.put("/:showId", async (req, res, next) => {
 
 /**
  * @swagger
- * /api/shows/{showId}:
+ * /api/shows:
  *   delete:
  *     summary: Delete a show from the database
  *     produces:
@@ -207,9 +207,12 @@ showsRoute.put("/:showId", async (req, res, next) => {
  *     parameters:
  *       - name: showId
  *         description: show's id number
- *         in: path
+ *         in: body
  *         required: true
- *         type: integer
+ *         type: object
+ *         properties:
+ *           show_id:
+ *             type: integer
  *     responses:
  *       204:
  *         description: Successful removal of show from watch list
@@ -220,10 +223,12 @@ showsRoute.put("/:showId", async (req, res, next) => {
  *       500:
  *         description: An unexpexted error occured
  */
-//DELETE /api/shows/:showId
-showsRoute.delete("/:showId", async (req, res, next) => {
+//DELETE /api/shows
+showsRoute.delete("/", async (req, res, next) => {
   try {
-    await db.asyncQuery("DELETE FROM shows WHERE show_id = $1", [req.showId]);
+    await db.asyncQuery("DELETE FROM shows WHERE show_id = $1", [
+      req.body.show_id,
+    ]);
     res.status(204).send("Item Removed");
   } catch (err) {
     res.status(500).send("An unexpexted error occured");

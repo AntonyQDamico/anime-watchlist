@@ -100,29 +100,21 @@ userShowsRoute.get("/", async (req, res, next) => {
 
 /**
  * @swagger
- * /api/user-shows/{userId}/{showId}:
+ * /api/user-shows:
  *   post:
  *     summary: Add a specific show to a specific users list, returning the entry to usershows
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: userId
- *         description: user's id number
- *         in: path
- *         required: true
- *         type: integer
- *       - name: showId
- *         description: show's id number
- *         in: path
- *         required: true
- *         type: integer
- *       - name: nextEp
- *         description: the next episode of the show added to the list
+ *       - name: payload
+ *         description: the next episode and show_id of the show added to the list
  *         in: body
  *         required: true
  *         type: object
  *         properties:
  *           nextEp:
+ *             type: integer
+ *           show_id:
  *             type: integer
  *     responses:
  *       201:
@@ -136,12 +128,12 @@ userShowsRoute.get("/", async (req, res, next) => {
  *       500:
  *         description: An unexpexted error occured
  */
-//POST /api/user-shows/:userId/:showId
-userShowsRoute.post("/:userId/:showId", async (req, res, next) => {
+//POST /api/user-shows
+userShowsRoute.post("/", async (req, res, next) => {
   try {
     const postResult = await db.asyncQuery(
       "INSERT INTO usershows (next_ep, user_id, show_id) VALUES ($1, $2, $3) RETURNING *",
-      [req.body.nextEp, req.userId, req.showId]
+      [req.body.next_ep, req.user.user_id, req.body.show_id]
     );
     res.status(201).send(postResult.rows[0]);
   } catch (err) {

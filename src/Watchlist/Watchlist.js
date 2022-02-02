@@ -37,31 +37,62 @@ import axios from "axios";
 function Watchlist() {
   const [titleList, setTitleList] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [nextShowId, setNextShowId] = useState(4); //value based on trialList
 
   function removeFromList(showId) {
-    const newList = titleList.filter((item) => item.showID !== showId);
-    setTitleList(newList);
-  }
-  function getNextShowId() {
-    const nextValue = nextShowId;
-    console.log(typeof nextShowId);
-    setNextShowId(Number(nextValue) + 1);
-    return nextValue;
+    axios({
+      method: "delete",
+      url: process.env.REACT_APP_SERVER_URL + "api/shows",
+      withCredentials: true,
+      data: {
+        show_id: showId,
+      },
+    })
+      .then((response) => {
+        const newList = titleList.filter((item) => item.showID !== showId);
+        setTitleList(newList);
+      })
+      .catch((error) => setErrorMessage("Failed to Delete"));
   }
 
-  function addShowToList(title, site, day, totalEps, nextEp) {
-    const newList = [...titleList];
-    newList.push({
-      title: title,
-      site: site,
-      day: day,
-      queue: [],
-      totalEps: totalEps,
-      nextEp: nextEp,
-      showID: getNextShowId(),
-    });
-    setTitleList(newList);
+  function addShowToList(title, site, day, totalEps, startEp) {
+    axios({
+      method: "post",
+      url: process.env.REACT_APP_SERVER_URL + "api/shows",
+      withCredentials: true,
+      data: {
+        title: title,
+        site: site,
+        air_day: day,
+        start_ep: startEp,
+        ending_ep: totalEps,
+      },
+    })
+      .then((response) => {
+        axios({
+          method: "post",
+          url: process.env.REACT_APP_SERVER_URL + "api/user-shows",
+          withCredentials: true,
+          data: {
+            show_id: response.data.show_id,
+            next_ep: response.data.start_ep,
+          },
+        })
+          .then((res) => {
+            const newList = [...titleList];
+            newList.push({
+              title: response.data.title,
+              site: response.data.site,
+              day: response.data.air_day,
+              queue: [],
+              totalEps: response.data.ending_ep,
+              nextEp: res.data.next_ep,
+              showID: response.data.show_id,
+            });
+            setTitleList(newList);
+          })
+          .catch((error) => setErrorMessage("Failed to Create New Show"));
+      })
+      .catch((error) => setErrorMessage("Failed to Create New Show"));
   }
   function sortWatchListTitle() {
     let newList = [...titleList];
