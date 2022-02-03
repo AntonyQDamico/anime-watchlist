@@ -1,5 +1,6 @@
 import "./WatchItem.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function WatchItem(props) {
   const [queueEps, setQueueEps] = useState(props.show.queue);
@@ -9,17 +10,56 @@ function WatchItem(props) {
   function queueAdd() {
     const currentQueue = [...queueEps];
     if (currentQueue.length > 0) {
-      currentQueue.push(currentQueue[currentQueue.length - 1] + 1);
-      setQueueEps(currentQueue);
+      axios({
+        method: "post",
+        url: process.env.REACT_APP_SERVER_URL + "api/watch-queue",
+        withCredentials: true,
+        data: {
+          queueEp: currentQueue[currentQueue.length - 1] + 1,
+          showId: props.show.showID,
+        },
+      })
+        .then((response) => {
+          currentQueue.push(response.data.queue_ep);
+          setQueueEps(currentQueue);
+        })
+        .catch(null);
     } else {
-      currentQueue.push(nextEp);
-      setQueueEps(currentQueue);
+      axios({
+        method: "post",
+        url: process.env.REACT_APP_SERVER_URL + "api/watch-queue",
+        withCredentials: true,
+        data: {
+          queueEp: nextEp,
+          showId: props.show.showID,
+        },
+      })
+        .then((response) => {
+          currentQueue.push(response.data.queue_ep);
+          setQueueEps(currentQueue);
+        })
+        .catch(null);
     }
   }
   function queueRemove() {
     const currentQueue = [...queueEps];
-    currentQueue.pop();
-    setQueueEps(currentQueue);
+    if (currentQueue.length > 0) {
+      axios({
+        method: "delete",
+        url: process.env.REACT_APP_SERVER_URL + "api/watch-queue",
+        withCredentials: true,
+        data: {
+          queueEp: currentQueue.pop(),
+          showId: props.show.showID,
+        },
+      })
+        .then((response) => {
+          setQueueEps(currentQueue);
+        })
+        .catch(null);
+    } else {
+      return;
+    }
   }
   function deleteFromList() {
     props.removeFromList(props.show.showID);
@@ -30,8 +70,33 @@ function WatchItem(props) {
   function watchAnEp() {
     const currentQueue = [...queueEps];
     if (currentQueue.length > 0) {
-      setNextEp(currentQueue.shift() + 1);
-      setQueueEps(currentQueue);
+      const epToWatch = currentQueue.shift();
+      axios({
+        method: "delete",
+        url: process.env.REACT_APP_SERVER_URL + "api/watch-queue",
+        withCredentials: true,
+        data: {
+          queueEp: epToWatch,
+          showId: props.show.showID,
+        },
+      })
+        .then((response) => {
+          axios({
+            method: "put",
+            url: process.env.REACT_APP_SERVER_URL + "api/user-shows",
+            withCredentials: true,
+            data: {
+              nextEp: epToWatch + 1,
+              showId: props.show.showID,
+            },
+          })
+            .then((response) => {
+              setNextEp(response.data.next_ep);
+              setQueueEps(currentQueue);
+            })
+            .catch(null);
+        })
+        .catch(null);
     } else {
       return;
     }
@@ -46,6 +111,21 @@ function WatchItem(props) {
     : "watch-extra-info hidden-row";
   let classDelButton = extraVis ? "delete-button" : "delete-button hidden-row";
 
+  function getQueueEps() {
+    axios({
+      method: "get",
+      url:
+        process.env.REACT_APP_SERVER_URL +
+        "api/watch-queue/" +
+        props.show.showID.toString(),
+      withCredentials: true,
+    })
+      .then((response) => {
+        setQueueEps(response.data);
+      })
+      .catch(null);
+  }
+  useEffect(getQueueEps, [props.show.showID]);
   return (
     <div className="watchitem">
       <div className="watch-title" onClick={toggleExtraInfo}>

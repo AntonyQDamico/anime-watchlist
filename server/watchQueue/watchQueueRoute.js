@@ -51,17 +51,12 @@ watchQueueRoute.param("showId", async (req, res, next, showId) => {
 
 /**
  * @swagger
- * /api/watch-queue/{userId}/{showId}:
+ * /api/watch-queue/{showId}:
  *   get:
  *     summary: Returns all watch-queue items for a specific show on a specific users list
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: userId
- *         description: user's id number
- *         in: path
- *         required: true
- *         type: integer
  *       - name: showId
  *         description: show's id number
  *         in: path
@@ -80,13 +75,13 @@ watchQueueRoute.param("showId", async (req, res, next, showId) => {
  *       500:
  *         description: An unexpected error occured
  */
-//GET /api/watch-queue/:userId/:showId
-watchQueueRoute.get("/:userId/:showId", async (req, res, next) => {
+//GET /api/watch-queue/:showId
+watchQueueRoute.get("/:showId", async (req, res, next) => {
   try {
     let returnArray = [];
     const searchResult = await db.asyncQuery(
       "SELECT queue_ep FROM watchqueue WHERE user_id = $1 AND show_id = $2 ORDER BY queue_ep ASC",
-      [req.userId, req.showId]
+      [req.user.user_id, req.showId]
     );
     if (searchResult.rows.length > 0) {
       returnArray = searchResult.rows.map((item) => item.queue_ep);
@@ -99,29 +94,22 @@ watchQueueRoute.get("/:userId/:showId", async (req, res, next) => {
 
 /**
  * @swagger
- * /api/watch-queue/{userId}/{showId}:
+ * /api/watch-queue:
  *   post:
  *     summary: Add a watch-queue item for a specific show on a specific users list, returns the watch-queue item added
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: userId
- *         description: user's id number
- *         in: path
- *         required: true
- *         type: integer
- *       - name: showId
- *         description: show's id number
- *         in: path
- *         required: true
- *         type: integer
- *       - name: queueEp
- *         description: episode to add to watch-queue
+ *       - name: payload
+ *         description: episode to add to a specific show watch-queue
  *         in: body
  *         required: true
  *         type: object
  *         properties:
- *           queueEp: integer
+ *           queueEp:
+ *             type: integer
+ *           showId:
+ *             type: integer
  *     responses:
  *       201:
  *         description: watch-queue item added
@@ -134,12 +122,12 @@ watchQueueRoute.get("/:userId/:showId", async (req, res, next) => {
  *       500:
  *         description: An unexpexted error occured
  */
-//POST /api/watch-queue/:userId/:showId
-watchQueueRoute.post("/:userId/:showId", async (req, res, next) => {
+//POST /api/watch-queue
+watchQueueRoute.post("/", async (req, res, next) => {
   try {
     const postResult = await db.asyncQuery(
       "INSERT INTO watchqueue (queue_ep, user_id, show_id) VALUES ($1, $2, $3) RETURNING *",
-      [req.body.queueEp, req.userId, req.showId]
+      [req.body.queueEp, req.user.user_id, req.body.showId]
     );
     res.status(201).send(postResult.rows[0]);
   } catch (err) {
@@ -149,29 +137,22 @@ watchQueueRoute.post("/:userId/:showId", async (req, res, next) => {
 
 /**
  * @swagger
- * /api/watch-queue/{userId}/{showId}:
+ * /api/watch-queue:
  *   delete:
  *     summary: Delete a watch-queue item from a specific show on a specific users list
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: userId
- *         description: user's id number
- *         in: path
- *         required: true
- *         type: integer
- *       - name: showId
- *         description: show's id number
- *         in: path
- *         required: true
- *         type: integer
- *       - name: queueEp
- *         description: episode to remove from watch-queue
+ *       - name: payload
+ *         description: episode to remove from a specific show watch-queue
  *         in: body
  *         required: true
  *         type: object
  *         properties:
- *           queueEp: integer
+ *           queueEp:
+ *             type: integer
+ *           showId:
+ *             type: integer
  *     responses:
  *       204:
  *         description: Successful removal of watch-queue item
@@ -182,12 +163,12 @@ watchQueueRoute.post("/:userId/:showId", async (req, res, next) => {
  *       500:
  *         description: An unexpexted error occured
  */
-//DELETE /api/watch-queue/:userId/:showId
-watchQueueRoute.delete("/:userId/:showId", async (req, res, next) => {
+//DELETE /api/watch-queue
+watchQueueRoute.delete("/", async (req, res, next) => {
   try {
     await db.asyncQuery(
       "DELETE FROM watchqueue WHERE queue_ep = $1 AND user_id = $2 AND show_id = $3",
-      [req.body.queueEp, req.userId, req.showId]
+      [req.body.queueEp, req.user.user_id, req.body.showId]
     );
     res.status(204).send("Item Removed");
   } catch (err) {

@@ -143,29 +143,21 @@ userShowsRoute.post("/", async (req, res, next) => {
 
 /**
  * @swagger
- * /api/user-shows/{userId}/{showId}:
+ * /api/user-shows:
  *   put:
  *     summary: update the next episode of a specific show in a specific users watch list
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: userId
- *         description: user's id number
- *         in: path
- *         required: true
- *         type: integer
- *       - name: showId
- *         description: show's id number
- *         in: path
- *         required: true
- *         type: integer
- *       - name: nextEp
+ *       - name: payload
  *         description: the next episode of the show on the list
  *         in: body
  *         required: true
  *         type: object
  *         properties:
  *           nextEp:
+ *             type: integer
+ *           showId:
  *             type: integer
  *     responses:
  *       200:
@@ -179,12 +171,12 @@ userShowsRoute.post("/", async (req, res, next) => {
  *       500:
  *         description: An unexpected error occured
  */
-// PUT /api/user-shows/:userId/:showId
-userShowsRoute.put("/:userId/:showId", async (req, res, next) => {
+// PUT /api/user-shows/
+userShowsRoute.put("/", async (req, res, next) => {
   try {
     const putResult = await db.asyncQuery(
       "UPDATE usershows SET next_ep = $1 WHERE user_id = $2 AND show_id = $3 RETURNING *",
-      [req.body.nextEp, req.userId, req.showId]
+      [req.body.nextEp, req.user.user_id, req.body.showId]
     );
     res.status(200).send(putResult.rows[0]);
   } catch (err) {
