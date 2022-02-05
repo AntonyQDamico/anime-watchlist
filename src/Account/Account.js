@@ -1,9 +1,10 @@
 import "../App/App.css";
 import "./Account.css";
 import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 
-function Account() {
+function Account(props) {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState("Welcome Back");
   const [pwMessage, setPWMessage] = useState("");
@@ -42,6 +43,7 @@ function Account() {
   useEffect(getUser, []);
   return (
     <div className="content-area">
+      {props.isAuth ? null : <Navigate to="/login" />}
       <section className="account-area">
         <h1>Account Info</h1>
         <h2>Hello {user}</h2>

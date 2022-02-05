@@ -1,9 +1,9 @@
 import "../Login/Login.css";
 import { useState } from "react";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-function Register() {
+function Register(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
@@ -43,8 +43,9 @@ function Register() {
   }
   return (
     <div className="content-area">
+      {props.isAuth ? <Navigate to="/" /> : null}
       {redirect ? (
-        <Redirect
+        <Navigate
           to={{
             pathname: "/login",
             state: { extraMessage: registerMessage },

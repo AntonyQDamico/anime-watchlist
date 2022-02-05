@@ -1,6 +1,7 @@
 import "../App/App.css";
 import "./Login.css";
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 
 function Login(props) {
@@ -45,6 +46,7 @@ function Login(props) {
   }
   return (
     <div className="content-area">
+      {props.isAuth ? <Navigate to="/" /> : null}
       <section className="login-area">
         <h1>Login</h1>
         {loginMessage.length > 0 ? (

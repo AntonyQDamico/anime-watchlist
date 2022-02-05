@@ -6,12 +6,7 @@ import Login from "../Login/Login.js";
 import Register from "../Register/Register.js";
 import Watchlist from "../Watchlist/Watchlist.js";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -32,33 +27,25 @@ function App() {
     <Router>
       <div className="App">
         <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
-        <Switch>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route
-            path="/account"
-            exact
-            render={() => (isAuth ? <Account /> : <Redirect to="/login" />)}
-          ></Route>
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/account" exact element={<Account isAuth={isAuth} />} />
           <Route
             path="/login"
             exact
-            render={() =>
-              isAuth ? <Redirect to="/" /> : <Login setIsAuth={setIsAuth} />
-            }
-          ></Route>
+            element={<Login isAuth={isAuth} setIsAuth={setIsAuth} />}
+          />
           <Route
             path="/register"
             exact
-            render={() => (isAuth ? <Redirect to="/" /> : <Register />)}
-          ></Route>
+            element={<Register isAuth={isAuth} />}
+          />
           <Route
             path="/watchlist"
             exact
-            render={() => (isAuth ? <Watchlist /> : <Redirect to="/login" />)}
-          ></Route>
-        </Switch>
+            element={<Watchlist isAuth={isAuth} />}
+          />
+        </Routes>
       </div>
     </Router>
   );

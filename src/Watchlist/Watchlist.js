@@ -2,39 +2,10 @@ import "./Watchlist.css";
 import WatchItem from "./WatchItem/WatchItem.js";
 import AddShowButton from "./AddShowButton/AddShowButton.js";
 import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 
-// const trialList = [
-//   {
-//     title: "One Piece",
-//     site: "CR",
-//     day: "Thur",
-//     queue: [102],
-//     totalEps: 24,
-//     nextEp: 102,
-//     showID: 1,
-//   },
-//   {
-//     title: "Bleach",
-//     site: "NF",
-//     day: "Sat",
-//     queue: [1, 2, 3],
-//     totalEps: 25,
-//     nextEp: 1,
-//     showID: 2,
-//   },
-//   {
-//     title: "Naruto",
-//     site: "FUN",
-//     day: "Wed",
-//     queue: [2],
-//     totalEps: 12,
-//     nextEp: 2,
-//     showID: 3,
-//   },
-// ];
-
-function Watchlist() {
+function Watchlist(props) {
   const [titleList, setTitleList] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -97,7 +68,9 @@ function Watchlist() {
   function sortWatchListTitle() {
     let newList = [...titleList];
     newList.sort((firstItem, secondItem) =>
-      firstItem.title > secondItem.title ? 1 : -1
+      firstItem.title.toLocaleLowerCase() > secondItem.title.toLocaleLowerCase()
+        ? 1
+        : -1
     );
     setTitleList(newList);
   }
@@ -162,6 +135,7 @@ function Watchlist() {
 
   return (
     <div className="watchlist content-area">
+      {props.isAuth ? null : <Navigate to="/login" />}
       <h1>Watchlist</h1>
       {errorMessage.length > 0 ? <p>{errorMessage}</p> : null}
       <div className="headers">
