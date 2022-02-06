@@ -19,7 +19,7 @@ function Login(props) {
     event.preventDefault();
     axios({
       method: "post",
-      url: process.env.REACT_APP_SERVER_URL + "api/login",
+      url: "/api/login",
       data: {
         email: username,
         password: password,

@@ -19,7 +19,7 @@ function Register(props) {
     event.preventDefault();
     axios({
       method: "post",
-      url: process.env.REACT_APP_SERVER_URL + "api/register",
+      url: "/api/register",
       data: {
         email: username,
         password: password,

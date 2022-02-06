@@ -17,7 +17,7 @@ function Account(props) {
     event.preventDefault();
     axios({
       method: "put",
-      url: process.env.REACT_APP_SERVER_URL + "api/users",
+      url: "/api/users",
       data: { password: password },
       withCredentials: true,
     })
@@ -33,7 +33,7 @@ function Account(props) {
   function getUser() {
     axios({
       method: "get",
-      url: process.env.REACT_APP_SERVER_URL + "api/users",
+      url: "/api/users",
       withCredentials: true,
     })
       .then((response) => setUser(response.data))

@@ -12,7 +12,7 @@ function WatchItem(props) {
     if (currentQueue.length > 0) {
       axios({
         method: "post",
-        url: process.env.REACT_APP_SERVER_URL + "api/watch-queue",
+        url: "/api/watch-queue",
         withCredentials: true,
         data: {
           queueEp: currentQueue[currentQueue.length - 1] + 1,
@@ -27,7 +27,7 @@ function WatchItem(props) {
     } else {
       axios({
         method: "post",
-        url: process.env.REACT_APP_SERVER_URL + "api/watch-queue",
+        url: "/api/watch-queue",
         withCredentials: true,
         data: {
           queueEp: nextEp,
@@ -46,7 +46,7 @@ function WatchItem(props) {
     if (currentQueue.length > 0) {
       axios({
         method: "delete",
-        url: process.env.REACT_APP_SERVER_URL + "api/watch-queue",
+        url: "/api/watch-queue",
         withCredentials: true,
         data: {
           queueEp: currentQueue.pop(),
@@ -73,7 +73,7 @@ function WatchItem(props) {
       const epToWatch = currentQueue.shift();
       axios({
         method: "delete",
-        url: process.env.REACT_APP_SERVER_URL + "api/watch-queue",
+        url: "/api/watch-queue",
         withCredentials: true,
         data: {
           queueEp: epToWatch,
@@ -83,7 +83,7 @@ function WatchItem(props) {
         .then((response) => {
           axios({
             method: "put",
-            url: process.env.REACT_APP_SERVER_URL + "api/user-shows",
+            url: "/api/user-shows",
             withCredentials: true,
             data: {
               nextEp: epToWatch + 1,
@@ -114,10 +114,7 @@ function WatchItem(props) {
   function getQueueEps() {
     axios({
       method: "get",
-      url:
-        process.env.REACT_APP_SERVER_URL +
-        "api/watch-queue/" +
-        props.show.showID.toString(),
+      url: "/api/watch-queue/" + props.show.showID.toString(),
       withCredentials: true,
     })
       .then((response) => {

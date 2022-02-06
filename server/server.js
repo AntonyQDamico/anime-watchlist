@@ -1,9 +1,22 @@
 require("dotenv").config({ path: __dirname + "/./../.env" });
 const express = require("express");
+const path = require("path");
 const app = express();
 module.exports = app;
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
+const servers =
+  process.env.NODE_ENV === "production"
+    ? "https://derailed-anime.herokuapp.com/"
+    : `https://localhost:${PORT}`;
+const origin =
+  process.env.NODE_ENV === "production"
+    ? "https://derailed-anime.herokuapp.com/"
+    : "http://localhost:3000";
+//Procution Check
+if (process.env.NODE_ENV === "production") {
+  app.use("/", express.static(path.join(__dirname, "../build")));
+}
 
 //Setup for Swagger and swagger-docs
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -18,7 +31,7 @@ const swaggerOptions = {
         name: "Antony Damico",
         email: "AntonyQDamico@gmail.com",
       },
-      servers: [`https://localhost:${PORT}`],
+      servers: [servers],
     },
   },
   apis: ["./*/*.js"],
@@ -36,7 +49,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var cors = require("cors");
 app.use(
   cors({
-    origin: "http://localhost:3000", // <-- location of react app we are conneting to
+    origin: origin, // <-- location of react app we are conneting to
     credentials: true,
   })
 );

@@ -12,7 +12,7 @@ function Watchlist(props) {
   function removeFromList(showId) {
     axios({
       method: "delete",
-      url: process.env.REACT_APP_SERVER_URL + "api/shows",
+      url: "/api/shows",
       withCredentials: true,
       data: {
         show_id: showId,
@@ -28,7 +28,7 @@ function Watchlist(props) {
   function addShowToList(title, site, day, totalEps, startEp) {
     axios({
       method: "post",
-      url: process.env.REACT_APP_SERVER_URL + "api/shows",
+      url: "/api/shows",
       withCredentials: true,
       data: {
         title: title,
@@ -41,7 +41,7 @@ function Watchlist(props) {
       .then((response) => {
         axios({
           method: "post",
-          url: process.env.REACT_APP_SERVER_URL + "api/user-shows",
+          url: "/api/user-shows",
           withCredentials: true,
           data: {
             show_id: response.data.show_id,
@@ -111,7 +111,7 @@ function Watchlist(props) {
   function getUsersWatchList() {
     axios({
       method: "get",
-      url: process.env.REACT_APP_SERVER_URL + "api/user-shows",
+      url: "/api/user-shows",
       withCredentials: true,
     })
       .then((response) => {

@@ -38,7 +38,7 @@ function Navbar(props) {
   function logout() {
     axios({
       method: "post",
-      url: process.env.REACT_APP_SERVER_URL + "api/logout",
+      url: "/api/logout",
       withCredentials: true,
     })
       .then((response) => props.setIsAuth(false))

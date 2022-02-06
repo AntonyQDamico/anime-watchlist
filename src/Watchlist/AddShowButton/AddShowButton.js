@@ -25,9 +25,6 @@ function AddShowButton(props) {
   }
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(
-      `Submitted Values: \nTitle: ${typeof newTitle}\nSite: ${typeof newSite}\nDay: ${typeof newDay}\nStart Ep: ${typeof newStart}\nSeason Eps: ${typeof newTotal}`
-    );
     setFormVis(false);
     resetFormDefault();
     let totalEps = newStart;
