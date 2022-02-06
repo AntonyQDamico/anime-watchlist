@@ -34,7 +34,7 @@
   "scripts": {
     "start": "cd server && node server.js",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts start",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
