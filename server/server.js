@@ -79,6 +79,13 @@ initializePassport(passport);
 const apiRouter = require("./api.js");
 app.use("/api", apiRouter);
 
+//allow page refresh and 404 error
+if (process.env.NODE_ENV === "production") {
+  app.get("*", (req, res, next) => {
+    res.sendFile(path.join(__dirname, "../build/index.html"));
+  });
+}
+
 // To start the server listening at PORT below:
 app.listen(PORT, () => {
   console.log(`Listening to port ${PORT}`);

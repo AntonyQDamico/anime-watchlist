@@ -5,6 +5,7 @@ import Account from "../Account/Account.js";
 import Login from "../Login/Login.js";
 import Register from "../Register/Register.js";
 import Watchlist from "../Watchlist/Watchlist.js";
+import NotFound from "../NotFound/NotFound";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -28,23 +29,15 @@ function App() {
       <div className="App">
         <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
         <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/account" exact element={<Account isAuth={isAuth} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/account" element={<Account isAuth={isAuth} />} />
           <Route
             path="/login"
-            exact
             element={<Login isAuth={isAuth} setIsAuth={setIsAuth} />}
           />
-          <Route
-            path="/register"
-            exact
-            element={<Register isAuth={isAuth} />}
-          />
-          <Route
-            path="/watchlist"
-            exact
-            element={<Watchlist isAuth={isAuth} />}
-          />
+          <Route path="/register" element={<Register isAuth={isAuth} />} />
+          <Route path="/watchlist" element={<Watchlist isAuth={isAuth} />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </Router>
