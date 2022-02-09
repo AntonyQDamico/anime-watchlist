@@ -10,8 +10,10 @@
   color: var(--accent-white);
   background-color: var(--main-background-color);
   min-height: 100vh;
+  overflow: hidden;
 }
 .content-area {
+  padding-top: 2rem;
   display: grid;
   grid-template-columns: minmax(315px, 1fr);
 }

@@ -60,23 +60,40 @@ function AddShowButton(props) {
         New Show
       </div>
       <form className={classNewShowForm} onSubmit={handleSubmit}>
-        <label htmlFor="title">Show Title</label>
+        <label className="form-head show-title" htmlFor="title">
+          Show Title
+        </label>
         <input
+          className="form-input show-title"
           type="text"
           id="title"
           value={newTitle}
           onChange={handleTitle}
           required
         />
-        <label htmlFor="site">Site</label>
-        <select id="site" value={newSite} onChange={handleSite}>
+        <label className="form-head show-site" htmlFor="site">
+          Site
+        </label>
+        <select
+          className="form-select show-site"
+          id="site"
+          value={newSite}
+          onChange={handleSite}
+        >
           <option value="??">Unknown</option>
           <option value="CR">Crunchyroll</option>
           <option value="NF">Netflix</option>
           <option value="FUN">Funimation</option>
         </select>
-        <label htmlFor="day">Weekday</label>
-        <select id="day" value={newDay} onChange={handleDay}>
+        <label className="form-head show-day" htmlFor="day">
+          Weekday
+        </label>
+        <select
+          className="form-select show-day"
+          id="day"
+          value={newDay}
+          onChange={handleDay}
+        >
           <option value="??">Unknown</option>
           <option value="Sun">Sunday</option>
           <option value="Mon">Monday</option>
@@ -86,22 +103,32 @@ function AddShowButton(props) {
           <option value="Fri">Friday</option>
           <option value="Sat">Saturday</option>
         </select>
-        <label htmlFor="startEp">Starting Ep</label>
+        <label className="form-head show-start" htmlFor="startEp">
+          Starting Ep
+        </label>
         <input
+          className="form-input show-start"
           type="number"
           id="startEp"
           required
           value={newStart}
           onChange={handleStart}
         />
-        <label htmlFor="totalEp">Eps in Season</label>
+        <label className="form-head show-eps" htmlFor="totalEp">
+          Eps in Season
+        </label>
         <input
+          className="form-input show-eps"
           type="number"
           id="totalEp"
           value={newTotal}
           onChange={handleTotal}
         />
-        <input type="submit" value="Add New Show" />
+        <input
+          className="submit-show-button"
+          type="submit"
+          value="Add New Show"
+        />
       </form>
     </div>
   );

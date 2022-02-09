@@ -2,6 +2,7 @@
   background-color: var(--banner-color);
   display: grid;
   grid-template-columns: 1fr 2fr;
+  position: fixed;
   z-index: 999;
   width: 100%;
 }
