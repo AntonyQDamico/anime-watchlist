@@ -131,7 +131,9 @@ function WatchItem(props) {
       <div className="watch-site">{site}</div>
       <div className="watch-day">{day}</div>
       <div className="watch-queue" onClick={watchAnEp}>
-        {queueEps}
+        {queueEps.map((ep) => (
+          <span key={ep}>{ep} </span>
+        ))}
       </div>
       <div className="queue-add">
         <button onClick={queueAdd}>+</button>
