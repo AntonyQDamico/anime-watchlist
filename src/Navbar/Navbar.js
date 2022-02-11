@@ -48,7 +48,7 @@ function Navbar(props) {
   return (
     <div className="navbar">
       <Link to="./" className="logo-name">
-        Anime Watchlist
+        🍙 Derailed Anime
       </Link>
       {props.isAuth ? loggedInNav : loggedOutNav}
     </div>

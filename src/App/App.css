@@ -13,7 +13,7 @@
   overflow: hidden;
 }
 .content-area {
-  padding-top: 2rem;
+  padding-top: 2.7rem;
   display: grid;
   grid-template-columns: minmax(315px, 1fr);
 }

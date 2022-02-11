@@ -3,8 +3,11 @@ import "./Home.css";
 function Home() {
   return (
     <div className="content-area">
-      <h1>Anime Watchlist</h1>
-      <p>This is only the home page. Please enjoy.</p>
+      <h1>Derailed Anime</h1>
+      <p>Welcome to the home page of Derailed Anime. Please enjoy.</p>
+      <a href={"https://github.com/AntonyQDamico/anime-watchlist"}>
+        Check out the GitHub page.
+      </a>
     </div>
   );
 }
