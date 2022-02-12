@@ -42,18 +42,19 @@ Project created with:
 ## Setup
 
 This project is currently hosted on Heroku in the following location:
+
 (https://derailed-anime.herokuapp.com/)
 
 ## How to Use
 
-Once registered and logged in, navigate to the watchlist page using the Nav Bar.
-You can click on the New Show section opening the form to add a new show to your list.
-Once a show is on your list, clicking on the plus or minus button will add or remove episodes to watch from the queue.
-Clicking on a shows title will expand information available and allow you to remove the show from your liist entirely.
-Clicking on the status section will progress the show queue, removeing it from the queue and progressing the next episode indicator.
-Clicking on the title header will sort all shows alphabetically.
-Clicking on the show/day header will sort all shows by air day, starting with the current weekday.
-The account page allows you to chagne your password.
+- Once registered and logged in, navigate to the watchlist page using the Nav Bar.
+- You can click on the New Show section opening the form to add a new show to your list.
+- Once a show is on your list, clicking on the plus or minus button will add or remove episodes to watch from the queue.
+- Clicking on a shows title will expand information available and allow you to remove the show from your liist entirely.
+- Clicking on the status section will progress the show queue, removeing it from the queue and progressing the next episode indicator.
+- Clicking on the title header will sort all shows alphabetically.
+- Clicking on the show/day header will sort all shows by air day, starting with the current weekday.
+- The account page allows you to chagne your password.
 
 ## To-do list:
 
