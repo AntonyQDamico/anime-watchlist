@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+# Derailed Anime - Anime Watchlist
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Keep track of all the episodes on your anime watchlist, including where and what day they air.
 
-## Available Scripts
+## Table of contents
 
-In the project directory, you can run:
+- [General info](#general-info)
+- [Technologies](#technologies)
+- [Setup](#setup)
+- [Features](#features)
+- [Status](#status)
+- [Inspiration](#inspiration)
+- [Contact](#contact)
 
-### `npm start`
+## General info
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Codecademy Project 'Open-Ended PERN App'
+The prompt for this project is to create your own full-stck web app as a final project.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+I took this project to make a watchlist that keeps track of each episode you need to watch in a list of shows. It also stores information about each show like what episode is next in your queue to watch, what is the next episode to add on your watchlist, where the show airs, what day the show airs, and how many episodes there are in total. This project works best to keep up to date when watching shows that are currently airing on a regular basis. Shows can be sorted by title to easily find a specific show, or can be sorted by air day to easily find shows airing on a specific weekday.
 
-### `npm test`
+### Project Goals
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Create a front-end using React.js
+2. Create a server using Node.js, Express.js
+3. Use a PostgreSQL database to store your data
+4. Set up proper security
+5. Create tests to ensure integrity of your code
+6. Deploy the web app on Heroku
 
-### `npm run build`
+## Technologies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Project created with:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- JavaScript
+- React.js
+- Node/Express
+- PostgreSQL
+- Git and GitHub
+- Command line
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Setup
 
-### `npm run eject`
+This project is currently hosted on Heroku in the following location:
+(https://derailed-anime.herokuapp.com/)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## How to Use
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Once registered and logged in, navigate to the watchlist page using the Nav Bar.
+You can click on the New Show section opening the form to add a new show to your list.
+Once a show is on your list, clicking on the plus or minus button will add or remove episodes to watch from the queue.
+Clicking on a shows title will expand information available and allow you to remove the show from your liist entirely.
+Clicking on the status section will progress the show queue, removeing it from the queue and progressing the next episode indicator.
+Clicking on the title header will sort all shows alphabetically.
+Clicking on the show/day header will sort all shows by air day, starting with the current weekday.
+The account page allows you to chagne your password.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## To-do list:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. ~Create a front-end using React.js~
+2. ~Create a server using Node.js, Express.js~
+3. ~Use a PostgreSQL database to store your data~
+4. ~Set up proper security~
+5. Create tests to ensure integrity of your code
+6. ~Deploy the web app on Heroku~
 
-## Learn More
+## Status
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Project is: _Deployed and In-Progress_
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contact
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Created by AntonyQDamico
