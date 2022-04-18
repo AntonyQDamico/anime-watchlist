@@ -83,6 +83,8 @@ function AddShowButton(props) {
           <option value="??">Unknown</option>
           <option value="CR">Crunchyroll</option>
           <option value="NF">Netflix</option>
+          <option value="HD">HiDive</option>
+          <option value="D+">Disney+</option>
           <option value="FUN">Funimation</option>
         </select>
         <label className="form-head show-day" htmlFor="day">
